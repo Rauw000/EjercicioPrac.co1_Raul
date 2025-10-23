@@ -1,0 +1,49 @@
+/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
+ */
+
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8;
+    color: #333;
+}
+
+header, nav, footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+nav a {
+    margin: 0 1em;
+    color: white;
+    text-decoration: none;
+}
+
+.hero {
+    text-align: center;
+    padding: 2em;
+    background-color: #ecf0f1;
+}
+
+.contenido {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2em;
+}
+
+.bloque {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1.5em;
+    margin: 1em;
+    width: 30%;
+    min-width: 300px;
+}

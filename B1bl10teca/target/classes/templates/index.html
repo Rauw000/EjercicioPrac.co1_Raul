@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="base :: base">
+<body>
+    <section class="hero">
+        <h2>Bienvenida a la Biblioteca Virtual</h2>
+        <p>Explora, aprende y comparte. Aquí encontrarás libros, categorías y un espacio para tus sugerencias.</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/2ov0cWQZJqI"
+                title="Importancia de la lectura" frameborder="0" allowfullscreen></iframe>
+    </section>
+
+    <section class="contenido">
+        <div class="bloque" th:replace="fragments/categoria :: categoria"></div>
+        <div class="bloque" th:replace="fragments/libro :: libro"></div>
+        <div class="bloque" th:replace="fragments/queja :: queja"></div>
+    </section>
+</body>
+</html>

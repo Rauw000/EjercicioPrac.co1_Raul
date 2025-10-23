@@ -1,7 +1,7 @@
 package EjercicioPrac.co1_Raul.demo.domain;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "categoria")
@@ -11,27 +11,14 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
     private String descripcion;
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    // Relación bidireccional (opcional)
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Libro> libros;
 
     public Categoria() {
-       
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+        // Constructor vacío necesario para JPA
     }
 
     // Getters y setters
@@ -44,14 +31,6 @@ public class Categoria {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -60,11 +39,11 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public List<Libro> getLibros() {
+        return libros;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
     }
 }

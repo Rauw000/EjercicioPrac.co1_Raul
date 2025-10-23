@@ -2,9 +2,7 @@ package EjercicioPrac.co1_Raul.demo.service;
 
 import EjercicioPrac.co1_Raul.demo.domain.Libro;
 import EjercicioPrac.co1_Raul.demo.repository.LibroRepository;
-
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -27,5 +25,9 @@ public class LibroService {
 
     public Libro guardar(Libro libro) {
         return libroRepository.save(libro);
+    }
+
+    public void eliminar(Long id) {
+        libroRepository.deleteById(id);
     }
 }

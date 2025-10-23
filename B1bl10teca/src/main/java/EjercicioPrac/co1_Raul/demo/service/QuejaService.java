@@ -2,7 +2,6 @@ package EjercicioPrac.co1_Raul.demo.service;
 
 import EjercicioPrac.co1_Raul.demo.domain.Queja;
 import EjercicioPrac.co1_Raul.demo.repository.QuejaRepository;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class QuejaService {
         this.quejaRepository = quejaRepository;
     }
 
-    public List<Queja> listarTodas() {
+    public List<Queja> listarTodos() {
         return quejaRepository.findAll();
     }
 
@@ -27,5 +26,9 @@ public class QuejaService {
 
     public Queja guardar(Queja queja) {
         return quejaRepository.save(queja);
+    }
+
+    public void eliminar(Long id) {
+        quejaRepository.deleteById(id);
     }
 }

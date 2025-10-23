@@ -2,7 +2,6 @@ package EjercicioPrac.co1_Raul.demo.service;
 
 import EjercicioPrac.co1_Raul.demo.domain.Categoria;
 import EjercicioPrac.co1_Raul.demo.repository.CategoriaRepository;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class CategoriaService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public List<Categoria> listarTodas() {
+    public List<Categoria> listarTodos() {
         return categoriaRepository.findAll();
     }
 
@@ -27,5 +26,9 @@ public class CategoriaService {
 
     public Categoria guardar(Categoria categoria) {
         return categoriaRepository.save(categoria);
+    }
+
+    public void eliminar(Long id) {
+        categoriaRepository.deleteById(id);
     }
 }

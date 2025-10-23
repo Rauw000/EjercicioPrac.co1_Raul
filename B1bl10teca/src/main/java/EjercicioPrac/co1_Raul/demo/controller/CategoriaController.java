@@ -1,42 +1,54 @@
 package EjercicioPrac.co1_Raul.demo.controller;
 
 import EjercicioPrac.co1_Raul.demo.domain.Categoria;
+import EjercicioPrac.co1_Raul.demo.service.LibroService;
 import EjercicioPrac.co1_Raul.demo.service.CategoriaService;
-import java.util.List;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/categorias")
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
+    private final LibroService libroService;
 
-    public CategoriaController(CategoriaService categoriaService) {
+    public CategoriaController(CategoriaService categoriaService, LibroService libroService) {
         this.categoriaService = categoriaService;
+        this.libroService = libroService;
     }
-
+    
+    // Mostrar listado y formulario
     @GetMapping
-    public List<Categoria> listarCategorias() {
-        return categoriaService.listarTodas();
+    public String mostrarIndex(Model model) {
+        model.addAttribute("categorias", categoriaService.listarTodos());
+        model.addAttribute("categoria", new Categoria()); // objeto vacío para agregar
+        model.addAttribute("libros", libroService.listarTodos());
+        return "index";  // aquí va tu página principal con fragmentos
     }
 
-    @PostMapping
-    public Categoria crearCategoria(@RequestBody Categoria categoria) {
-        return categoriaService.guardar(categoria);
+    // Guardar categoria (nuevo o modificado)
+    @PostMapping("/guardar")
+    public String guardarCategoria(@ModelAttribute("categoria") Categoria categoria) {
+        categoriaService.guardar(categoria);
+        return "redirect:/categorias";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Categoria> obtenerPorId(@PathVariable Long id) {
-        return categoriaService.obtenerPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    // Modificar categoria: mostrar el categoria en el formulario
+    @GetMapping("/modificar/{id}")
+    public String modificarCategoria(@PathVariable Long id, Model model) {
+        Categoria categoria = categoriaService.obtenerPorId(id).orElse(new Categoria());
+        model.addAttribute("categoria", categoria);
+        model.addAttribute("categorias", categoriaService.listarTodos());
+        model.addAttribute("libros", libroService.listarTodos());
+        return "index";
     }
-    
-    
+
+    // Eliminar categoria
+    @PostMapping("/eliminar")
+    public String eliminarCategoria(@RequestParam("id") Long id) {
+        categoriaService.eliminar(id);
+        return "redirect:/categorias";
+    }
 }

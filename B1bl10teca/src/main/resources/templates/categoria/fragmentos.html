@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Fragmento para agregar/modificar categoría -->
+<section th:fragment="agregarCategoria">
+    <form th:action="@{/categorias/guardar}" th:object="${categoria}" method="post" class="p-3">
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <input type="text" id="descripcion" th:field="*{descripcion}" class="form-control" placeholder="Descripción" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</section>
+
+<!-- Fragmento para mostrar listado de categorías -->
+<section th:fragment="listadoCategorias" class="p-3">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="categoria : ${categorias}">
+                <td th:text="${categoria.id}"></td>
+                <td th:text="${categoria.descripcion}"></td>
+                <td>
+                    <a th:href="@{'/categorias/modificar/' + ${categoria.id}}" class="btn btn-warning btn-sm">Editar</a>
+                    <form th:action="@{/categorias/eliminar}" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${categoria.id}" />
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar esta categoría?');">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>

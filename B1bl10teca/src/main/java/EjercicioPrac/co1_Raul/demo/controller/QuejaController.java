@@ -2,13 +2,11 @@ package EjercicioPrac.co1_Raul.demo.controller;
 
 import EjercicioPrac.co1_Raul.demo.domain.Queja;
 import EjercicioPrac.co1_Raul.demo.service.QuejaService;
-
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/quejas")
 public class QuejaController {
 
@@ -19,19 +17,21 @@ public class QuejaController {
     }
 
     @GetMapping
-    public List<Queja> listarQuejas() {
-        return quejaService.listarTodas();
+    public String listarQuejas(Model model) {
+        model.addAttribute("quejas", quejaService.listarTodos());
+        model.addAttribute("queja", new Queja());
+        return "quejas/index";  // Aquí iría tu template thymeleaf para quejas
     }
 
-    @PostMapping
-    public Queja crearQueja(@RequestBody Queja queja) {
-        return quejaService.guardar(queja);
+    @PostMapping("/guardar")
+    public String guardarQueja(@ModelAttribute Queja queja) {
+        quejaService.guardar(queja);
+        return "redirect:/quejas";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Queja> obtenerPorId(@PathVariable Long id) {
-        return quejaService.obtenerPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @PostMapping("/eliminar")
+    public String eliminarQueja(@RequestParam Long id) {
+        quejaService.eliminar(id);
+        return "redirect:/quejas";
     }
 }

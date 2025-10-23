@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="~{general/fragmentos :: head}">
+        <title>Biblioteca</title>
+    </head>
+
+    <body>
+        <header th:replace="~{general/fragmentos :: header}"/>
+
+        <!-- Fragmentos de Libro -->
+        <section th:replace="~{libro/fragmentos :: agregarLibro}"></section>
+        <section th:replace="~{libro/fragmentos :: listadoLibros}"></section>
+        <section th:replace="~{libro/fragmentos :: confirmarEliminarLibro}"></section>
+        
+        <footer th:replace="~{general/fragmentos :: footer}"/>
+    </body>
+</html>
+<!-- Fragmentos de Libro -->
+        

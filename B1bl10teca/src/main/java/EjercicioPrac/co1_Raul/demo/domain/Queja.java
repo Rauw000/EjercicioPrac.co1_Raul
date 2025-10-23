@@ -11,34 +11,25 @@ public class Queja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombreCliente;
-    private String email;
-    private String telefono;
-
-    @Enumerated(EnumType.STRING)
-    private Tipo tipo;
-
     private String asunto;
-    private String mensaje;
-    private Boolean tratado;
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    @Column(length = 1000)
+    private String descripcion;
 
-    public enum Tipo {
-        QUEJA, SUGERENCIA, CONSULTA
-    }
+    private String usuario;
+
+    private LocalDateTime fechaCreacion;
 
     public Queja() {
-     
+        // Constructor vacío para JPA
     }
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
+        this.fechaCreacion = LocalDateTime.now();
     }
 
-    
+    // Getters y setters
 
     public Long getId() {
         return id;
@@ -46,38 +37,6 @@ public class Queja {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
-    public void setNombreCliente(String nombreCliente) {
-        this.nombreCliente = nombreCliente;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
     }
 
     public String getAsunto() {
@@ -88,23 +47,27 @@ public class Queja {
         this.asunto = asunto;
     }
 
-    public String getMensaje() {
-        return mensaje;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Boolean getTratado() {
-        return tratado;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setTratado(Boolean tratado) {
-        this.tratado = tratado;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }

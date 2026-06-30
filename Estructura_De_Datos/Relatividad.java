@@ -250,61 +250,88 @@ Cada variable tiene un nombre y un tipo de dato asociado, como int, double, Stri
 
 // crear login con joptionPane
 
-      public static void main(String[] args) {
+
+    static String usuarioGuardado = "";
+    static String contraGuardada = "";
+
+    public static void main(String[] args) {
         logearse();
     }
-        public static void creacionCuenta(){
-            String usuario = JOptionPane.showInputDialog("Ingrese un nombre de usuario");
-            String contrasena = JOptionPane.showInputDialog("Ingrese una contraseña");
-          // confirmacion de datos 
-          if(usuario.isEmpty() || contrasena.isEmpty()){
+
+    // Crear cuenta
+    public static void creacionCuenta() {
+
+        String usuario = JOptionPane.showInputDialog("Ingrese un nombre de usuario");
+        String contrasena = JOptionPane.showInputDialog("Ingrese una contraseña");
+
+        if (usuario.isEmpty() || contrasena.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar los datos solicitados");
-        }else {
-            JOptionPane.showMessageDialog(null,"Cuenta creada correctamente");
+            return;
         }
-           //Iniciar seccion
-        String usuarioGuardado = usuario;
-        String contraGuardada = contrasena;
+
+        usuarioGuardado = usuario;
+        contraGuardada = contrasena;
+
+        JOptionPane.showMessageDialog(null, "Cuenta creada correctamente");
+    }
+
+    // Iniciar sesión
+    public static void iniciarSesion() {
+
+        if (usuarioGuardado.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Primero debe crear una cuenta.");
+            return;
+        }
+
         String usuarioLogin = JOptionPane.showInputDialog("Ingrese su usuario");
         String contraLogin = JOptionPane.showInputDialog("Ingrese su contraseña");
 
-        if(usuarioLogin.equals(usuarioGuardado) && contraLogin.equals(contraGuardada)){
+        if (usuarioLogin.equals(usuarioGuardado) && contraLogin.equals(contraGuardada)) {
             JOptionPane.showMessageDialog(null, "Bienvenido");
-            return;
-        }else{
-            JOptionPane.showMessageDialog(null, "Vuelva a intentar" + 
-            "\nNombre o Contraseña incorrecta");
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Nombre o contraseña incorrecta");
         }
     }
-    public static void logearse(){
-        int opcion1 = 0;
-        do {
-            try{
-                opcion1 = Integer.parseInt(JOptionPane.showInputDialog(
-                "===== Inicio de Sesión =====\n"
-                + "1. Crearcuenta\n"
-                + "2. Iniciar Sesión\n"
-                + "3. Salir\n\n"
-            ));
-            
-            switch (opcion1) {
-                case 1:
-                    creacionCuenta();
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    JOptionPane.showMessageDialog(null, "Saliendo");
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Opción no valida");
-             }
 
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "Debe ingresar un numero");
+    public static void logearse() {
+
+        int opcion1 = 0;
+
+        do {
+            try {
+
+                opcion1 = Integer.parseInt(JOptionPane.showInputDialog(
+                        "===== Inicio de Sesión =====\n"
+                        + "1. Crear cuenta\n"
+                        + "2. Iniciar Sesión\n"
+                        + "3. Salir"));
+
+                switch (opcion1) {
+
+                    case 1:
+                        creacionCuenta();
+                        break;
+
+                    case 2:
+                        iniciarSesion();   // <-- Aquí llamas al método
+                        break;
+
+                    case 3:
+                        JOptionPane.showMessageDialog(null, "Saliendo");
+                        break;
+
+                    default:
+                        JOptionPane.showMessageDialog(null, "Opción no válida");
+                }
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un número");
             }
-        }while (opcion1 != 3);
+
+        } while (opcion1 != 3);
     }
 }
+
 
 
